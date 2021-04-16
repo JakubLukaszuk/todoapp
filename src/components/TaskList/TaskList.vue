@@ -14,27 +14,21 @@
 import TaskItem from "./TaskItem";
 
 export default {
-  name: "App",
+  props: {
+    tasks:{
+      type: Array,
+      required: true
+    }
+  },
   components: {
     TaskItem,
   },
-  data() {
-    return {
-      tasks: [
-        {
-          id: "official-guide",
-          title: "Official Guide",
-          description: "The offcial Vue documentation",
-          link: "https://vuejs.org/",
-        },
-        {
-          id: "google",
-          title: "Google",
-          description: "search engine",
-          link: "https://www.google.com/",
-        },
-      ],
-    };
-  },
 };
 </script>
+
+<style scoped>
+ul {
+  margin: auto;
+  max-width: 40rem;
+}
+</style>
