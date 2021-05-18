@@ -14,12 +14,7 @@
 import TaskItem from "./TaskItem";
 
 export default {
-  props: {
-    tasks:{
-      type: Array,
-      required: true
-    }
-  },
+  inject: ['tasks'],
   components: {
     TaskItem,
   },

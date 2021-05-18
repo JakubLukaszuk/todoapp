@@ -1,35 +1,17 @@
 <template>
   <the-header title="To Do App"/>
-  <task-list :tasks="tasks"/>
+  <the-tasks/>
 </template>
 
 <script>
-import TaskList from "./components/TaskList/TaskList";
 import TheHeader from "./components/Header/TheHeader";
+import TheTasks from './components/TaskList/TheTasks';
 
 export default {
   name: "App",
   components: {
-    TaskList,
-    TheHeader
-  },
-  data() {
-    return {
-      tasks: [
-        {
-          id: "official-guide",
-          title: "Official Guide",
-          description: "The offcial Vue documentation",
-          link: "https://vuejs.org/",
-        },
-        {
-          id: "google",
-          title: "Google",
-          description: "search engine",
-          link: "https://www.google.com/",
-        },
-      ],
-    };
+    TheHeader,
+    TheTasks
   },
 };
 </script>
