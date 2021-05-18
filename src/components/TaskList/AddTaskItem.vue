@@ -1,17 +1,30 @@
 <template>
+  <base-dialog v-if="inputIsInvalid" title="Invalid Input" @close="confirmError">
+    <template #content>
+      <p>inputs invalid</p>
+    </template>
+    <template #actions>
+      <base-button @click="confirmError">Okay</base-button>
+    </template>
+  </base-dialog>
   <base-card>
-    <form>
+    <form @submit.prevent="submitData">
       <div class="form-control">
         <label>Title</label>
-        <input id="title" name="title" type="text" />
+        <input id="title" name="title" type="text" ref="titleInput" />
       </div>
       <div class="form-control">
         <label>Description</label>
-        <textarea id="description" name="description" rows="3"></textarea>
+        <textarea
+          id="description"
+          name="description"
+          rows="3"
+          ref="descriptionInput"
+        ></textarea>
       </div>
       <div class="form-control">
         <label>Link</label>
-        <input id="title" name="link" type="url" />
+        <input id="title" name="link" type="url" ref="linkInput" />
       </div>
       <div>
         <base-button type="submit">Add Task</base-button>
@@ -21,7 +34,34 @@
 </template>
 
 <script>
-export default {};
+export default {
+  inject: ["addTask"],
+  data() {
+    return {
+      inputIsInvalid: false,
+    };
+  },
+  methods: {
+    submitData() {
+      const enteredTitle = this.$refs.titleInput.value;
+      const enteredDescription = this.$refs.titleInput.value;
+      const enteredUrl = this.$refs.linkInput.value;
+
+      if (
+        enteredTitle.trim() === "" ||
+        enteredDescription.trim() === "" ||
+        enteredUrl.trim() === ""
+      ) {
+        this.inputIsInvalid = true;
+        return;
+      }
+      this.addTask(enteredTitle, enteredDescription, enteredUrl);
+    },
+    confirmError() {
+      this.inputIsInvalid = false;
+    },
+  },
+};
 </script>
 
 <style scoped>

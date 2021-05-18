@@ -6,11 +6,16 @@
     >
       Stored Resources
     </base-button>
-    <base-button @click="setSelectedTab('add-task-item')" :mode="addResButtonMode">
+    <base-button
+      @click="setSelectedTab('add-task-item')"
+      :mode="addResButtonMode"
+    >
       Add Resource
     </base-button>
   </base-card>
-  <component :is="selectedTab"></component>
+  <keep-alive>
+    <component :is="selectedTab"></component>
+  </keep-alive>
 </template>
 
 <script>
@@ -43,6 +48,7 @@ export default {
   provide() {
     return {
       tasks: this.tasks,
+      addTask: this.addTask,
     };
   },
   computed: {
@@ -56,6 +62,16 @@ export default {
   methods: {
     setSelectedTab(tab) {
       this.selectedTab = tab;
+    },
+    addTask(title, description, url) {
+      const newResource = {
+        id: new Date().toISOString(),
+        title: title,
+        description: description,
+        url: url,
+      };
+      this.tasks.unshift(newResource);
+      this.selectedTab = "task-list";
     },
   },
 };
